@@ -16,17 +16,19 @@ const Layout: React.FC = (props: any) => {
 
         <div className="flex items-center">
           <Link href={"/login"}>
-            <a
-              style={{ background: "#3BB6B5" }}
-              className="block px-8 py-2 text-white rounded-3xl mr-4"
-            >
+            <a className="block px-8 py-2 rounded-3xl mr-4 border">
               Login
               <i className="fa-solid fa-house" />
             </a>
           </Link>
 
           <Link href={"/register"}>
-            <a className="block px-8 py-2 rounded-3xl mr-8 border">Sign Up</a>
+            <a
+              style={{ background: "#3BB6B5" }}
+              className="block px-8 py-2 rounded-3xl mr-8 border text-white"
+            >
+              Sign Up
+            </a>
           </Link>
         </div>
       </div>
