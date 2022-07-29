@@ -1,11 +1,27 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
+import type { AppProps, AppContext } from "next/app";
 import Head from "next/head";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../apollo/client";
+import { useEffect } from "react";
+import nookies from "nookies";
+import { auth } from "../util/firebase";
+import { wrapper } from "../store/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);
+
+  useEffect(() => {
+    return auth.onIdTokenChanged(async (user) => {
+      if (!user) {
+        nookies.set(undefined, "token", "", { path: "/" });
+      } else {
+        const token = await user.getIdToken();
+        nookies.set(undefined, "token", token, { path: "/" });
+      }
+    });
+  }, []);
+
   return (
     <>
       <Head>
@@ -31,4 +47,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -26,27 +26,30 @@ const Register: NextPage = () => {
             initialValues={{
               email: "",
               password: "",
-              name: "",
-              surname: "",
+              first_name: "",
+              last_name: "",
+              confirm_password: "",
             }}
             validate={(values) => {}}
             onSubmit={async (
-              { email, password, surname, name },
+              { email, password, first_name, last_name, confirm_password },
               { setSubmitting, setErrors }
             ) => {
               try {
+                if (password != confirm_password) {
+                  throw new Error("invalid password");
+                }
                 await createUserWithEmailAndPassword(auth, email, password);
                 await register({
                   variables: {
                     user: {
-                      email: email,
-                      password: password,
-                      surname: surname,
-                      name: name,
+                      email,
+                      password,
+                      first_name,
+                      last_name,
                     },
                   },
                 });
-
                 router.push(`/login?email=${email}`);
               } catch (err) {
                 const errs: any = err;
@@ -82,22 +85,22 @@ const Register: NextPage = () => {
                   {errors.email}
                 </span>
                 <input
-                  id="name"
+                  id="first_name"
                   type="name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-3"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Name"
-                  value={values.name}
+                  placeholder="First Name"
+                  value={values.first_name}
                 />
                 <input
-                  id="surname"
+                  id="last_name"
                   type="surname"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-3"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Surname"
-                  value={values.surname}
+                  placeholder="Last Name"
+                  value={values.last_name}
                 />
                 <input
                   id="email"
@@ -111,11 +114,21 @@ const Register: NextPage = () => {
                 <input
                   type="password"
                   id="password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5  mb-3"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Password"
                   value={values.password}
+                />
+
+                <input
+                  type="password"
+                  id="confirm_password"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Confirm Password"
+                  value={values.confirm_password}
                 />
 
                 <button

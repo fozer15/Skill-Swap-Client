@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import Layout from "../components/layout";
 import { useRouter } from "next/router";
 import { auth, signInWithEmailAndPassword } from "../util/firebase";
+import { useEffect } from "react";
 import Img from "next/image";
 
 type Query = {
@@ -15,7 +16,6 @@ type Props = {
 
 const Login: NextPage<Props> = (props) => {
   const router = useRouter();
-
   return (
     //@ts-ignore
     <Layout>

@@ -1,7 +1,7 @@
 query getCurrentUser {
   getCurrentUser {
-    name
-    surname
+    first_name
+    last_name
     email
   }
 }

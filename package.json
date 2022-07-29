@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@graphql-codegen/cli": "^2.6.4",
+    "@reduxjs/toolkit": "^1.8.3",
     "@types/firebase": "^3.2.1",
     "apollo-link-error": "^1.1.13",
     "deepmerge": "^4.2.2",
@@ -19,8 +20,11 @@
     "formik": "^2.2.9",
     "graphql": "^16.5.0",
     "next": "12.1.6",
+    "next-redux-wrapper": "^7.0.5",
+    "nookies": "^2.5.2",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-redux": "^8.0.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.4",

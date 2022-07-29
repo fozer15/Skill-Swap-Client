@@ -1,4 +1,4 @@
-import { ForwardedRef, useMemo } from "react";
+import { useMemo } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -7,37 +7,26 @@ import {
   ApolloLink,
 } from "@apollo/client";
 import merge from "deepmerge";
-import { setContext, ContextSetter } from "@apollo/client/link/context";
-import { getIdToken, onAuthStateChanged, auth } from "../util/firebase";
+import nookies from "nookies";
 
 //@ts-ignore
 let apolloClient;
 
-const middleWareLink = new ApolloLink(
-  (operation, forward) =>
-    new Promise() <
-    ForwardedRef >
-    ((res, reg) => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          return getIdToken(user).then((token) => {
-            operation.setContext({
-              headers: {
-                ...operation.getContext().headers,
-                authorization: token ? `Bearer ${token}` : "",
-              },
-            });
-            return res(forward(operation));
-          });
-        }
-        res(forward(operation));
-      });
-    })
-);
+const middleWareLink = (ctx) =>
+  new ApolloLink((operation, forward) => {
+    const cookies = nookies.get(ctx ?? null);
+    operation.setContext({
+      headers: {
+        ...operation.getContext().headers,
+        authorization: `Bearer ${cookies?.token}`,
+      },
+    });
+    return forward(operation);
+  });
 
-function createLink() {
+function createLink(ctx) {
   return from([
-    middleWareLink,
+    middleWareLink(ctx),
     new HttpLink({
       uri: "http://localhost:4000/graphql",
       credentials: "include",
@@ -45,17 +34,17 @@ function createLink() {
   ]);
 }
 
-function createApolloClient() {
+function createApolloClient(ctx) {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
-    link: createLink(),
+    link: createLink(ctx),
     cache: new InMemoryCache(),
   });
 }
 
-export function initializeApollo(initialState = null) {
+export function initializeApollo(initialState = null, ctx) {
   //@ts-ignore
-  const _apolloClient = apolloClient ?? createApolloClient();
+  const _apolloClient = apolloClient ?? createApolloClient(ctx);
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
