@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import Layout from "../components/layout";
 
-const Home: NextPage = (props) => {
+const Index: NextPage = (props) => {
   return (
     //@ts-ignore
     <Layout>
@@ -30,4 +28,4 @@ const Home: NextPage = (props) => {
   );
 };
 
-export default Home;
+export default Index;

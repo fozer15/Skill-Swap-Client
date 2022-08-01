@@ -1,15 +1,17 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { authSlice } from "./authSlice";
+import { userSlice } from "./authSlice";
 import { createWrapper } from "next-redux-wrapper";
-import { measureMemory } from "vm";
+import { useMemo } from "react";
 
-const makeStore = () =>
-  configureStore({
+//@ts-ignore
+const makeStore = () => {
+  return configureStore({
     reducer: {
-      [authSlice.name]: authSlice.reducer,
+      [userSlice.name]: userSlice.reducer,
     },
     devTools: true,
   });
+};
 
 export type AppStore = ReturnType<typeof makeStore>;
 export type AppState = ReturnType<AppStore["getState"]>;

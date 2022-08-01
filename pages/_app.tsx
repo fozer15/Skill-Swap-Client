@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
 import Head from "next/head";
+import Sript from "next/script";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../apollo/client";
 import { useEffect } from "react";
@@ -13,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     return auth.onIdTokenChanged(async (user) => {
+      //sets a firebase listener for cookie setting
       if (!user) {
         nookies.set(undefined, "token", "", { path: "/" });
       } else {
@@ -31,10 +33,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           href="https://fonts.gstatic.com"
           crossOrigin="true"
         />
-        <script
+        <Sript
           src="https://kit.fontawesome.com/be8853b629.js"
           crossOrigin="anonymous"
-        ></script>
+        ></Sript>
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,200;8..144,300&display=swap"
           rel="stylesheet"

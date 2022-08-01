@@ -1,10 +1,8 @@
-import type { NextPage, GetServerSidePropsResult } from "next";
+import type { NextPage } from "next";
 import { Formik } from "formik";
 import Layout from "../components/layout";
 import { useRouter } from "next/router";
 import { auth, signInWithEmailAndPassword } from "../util/firebase";
-import { useEffect } from "react";
-import Img from "next/image";
 
 type Query = {
   email?: string;

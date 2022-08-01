@@ -8,10 +8,10 @@ const MenuItem: React.FC<{
 }> = ({ Icon, Text, url }) => {
   return (
     <div className="flex items-center mb-3">
-      <Link href={"/profile"}>
+      <Link href={url ?? "/home"}>
         <a>
           <span className="mr-3">{Icon}</span>
-          <span className="text-xl">{Text}</span>
+          <span className="text-[1rem]">{Text}</span>
         </a>
       </Link>
     </div>

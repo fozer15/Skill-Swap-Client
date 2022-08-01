@@ -1,12 +1,12 @@
 import React, { Component, PropsWithChildren } from "react";
-import { selectAuthState, setUser } from "../../store/authSlice";
+import { selectUserState, setUser } from "../../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../util/firebase";
 import { useRouter } from "next/router";
 import MenuItem from "./menuItem";
 
 const SideBar: React.FC<PropsWithChildren> = ({ children }) => {
-  const user = useSelector(selectAuthState);
+  const user = useSelector(selectUserState);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -21,7 +21,7 @@ const SideBar: React.FC<PropsWithChildren> = ({ children }) => {
           <MenuItem Text="Profile" url="/profile" />
           <MenuItem Text="Requests" />
           <MenuItem Text="My Exchanges" />
-          <MenuItem Text="Home" />
+          <MenuItem Text="Home" url="/home" />
         </div>
         <div className="flex items-center justify-center">
           <img
@@ -32,8 +32,8 @@ const SideBar: React.FC<PropsWithChildren> = ({ children }) => {
           <div>
             {" "}
             <div className="py-2 px-4 text-center bg-[#5D69A6] text-white rounded-3xl mb-2 text-base">
-              <span>{user.info.first_name} </span>
-              <span>{user.info.last_name}</span>
+              <span>{user.first_name} </span>
+              <span>{user.last_name}</span>
             </div>
             <button
               className="px-8 py-2 text-black rounded-3xl font-medium"

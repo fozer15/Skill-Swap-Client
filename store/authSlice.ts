@@ -1,45 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
-import { stripIgnoredCharacters } from "graphql";
+import { storeKeyNameFromField } from "@apollo/client/utilities";
 
 export interface UserState {
-  info: {
+  data: {
     first_name: string;
     last_name: string;
     email: string;
   };
 }
 
-const initialState: UserState = {
-  info: {
-    first_name: "fatih",
-    last_name: "ozer",
-    email: "a",
+let initialState: UserState = {
+  data: {
+    first_name: "",
+    last_name: "",
+    email: "",
   },
 };
 
-// Actual Slice
-export const authSlice = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setUser(state, action) {
-      state.info = action.payload;
+      state.data = action.payload;
     },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload.user,
+        data: {
+          ...action.payload.user.data,
+        },
       };
     },
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser } = userSlice.actions;
 
-export const selectAuthState = (state: AppState) => state.user;
+export const selectUserState = (state: AppState) => state.user.data;
 
-export default authSlice.reducer;
+export default userSlice.reducer;

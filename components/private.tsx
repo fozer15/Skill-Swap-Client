@@ -10,6 +10,7 @@ import {
 } from "../generated/graphql";
 import { setUser } from "../store/authSlice";
 import { AppStore } from "../store/store";
+import { storeKeyNameFromField } from "@apollo/client/utilities";
 
 export function withAuth(gssp: GetServerSideProps, store: AppStore) {
   return async (context: GetServerSidePropsContext) => {
@@ -40,6 +41,7 @@ export function withAuth(gssp: GetServerSideProps, store: AppStore) {
       return {
         redirect: {
           destination: "/login",
+          permanent: true,
         },
       };
     }
