@@ -28,15 +28,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+        <script
+          src="https://kit.fontawesome.com/be8853b629.js"
+          //@ts-ignore
+          crossOrigin={true}
+        ></script>
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="true"
         />
-        <Sript
-          src="https://kit.fontawesome.com/be8853b629.js"
-          crossOrigin="anonymous"
-        ></Sript>
+
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,200;8..144,300&display=swap"
           rel="stylesheet"

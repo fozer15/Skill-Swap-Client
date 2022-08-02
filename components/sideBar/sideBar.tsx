@@ -7,7 +7,6 @@ import MenuItem from "./menuItem";
 
 const SideBar: React.FC<PropsWithChildren> = ({ children }) => {
   const user = useSelector(selectUserState);
-  const dispatch = useDispatch();
   const router = useRouter();
 
   return (

@@ -10,12 +10,10 @@ import {
 } from "../generated/graphql";
 import { setUser } from "../store/authSlice";
 import { AppStore } from "../store/store";
-import { storeKeyNameFromField } from "@apollo/client/utilities";
 
 export function withAuth(gssp: GetServerSideProps, store: AppStore) {
   return async (context: GetServerSidePropsContext) => {
     const client: ApolloClient<InMemoryCache> = initializeApollo(null, context);
-
     try {
       const res = await client.query<
         GetCurrentUserQuery,
@@ -36,12 +34,24 @@ export function withAuth(gssp: GetServerSideProps, store: AppStore) {
         },
       };
 
-      return finalProps;
-    } catch {
+      if (
+        rest.isProfileCreated ||
+        (!rest.isProfileCreated && context.resolvedUrl == "/create-profile")
+      ) {
+        return finalProps;
+      } else {
+        return {
+          redirect: {
+            destination: "/create-profile",
+          },
+          ...finalProps,
+        };
+      }
+    } catch (err) {
+      console.log((err as any).message);
       return {
         redirect: {
           destination: "/login",
-          permanent: true,
         },
       };
     }
