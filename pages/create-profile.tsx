@@ -145,16 +145,15 @@ const CreateProfile: NextPage = () => {
                   ></textarea>
                   <button
                     onClick={(e) => {
-                      const title = (
+                      const title =
                         document.querySelector<HTMLInputElement>(
                           "#title"
-                        ) as HTMLInputElement
-                      ).value;
-                      const description = (
+                        )!.value;
+
+                      const description =
                         document.querySelector<HTMLInputElement>(
                           "#description"
-                        ) as HTMLInputElement
-                      ).value;
+                        )!.value;
 
                       if (title && description) {
                         setSkills((prev) =>
