@@ -3,3 +3,15 @@ mutation Register($user: RegisterInput!) {
     id
   }
 }
+
+mutation CreateProfile($skills: [SkillInput!]!) {
+  createProfile(skills: $skills)
+}
+
+query GetUserSkills {
+  getUserSkills {
+    type
+    title
+    description
+  }
+}

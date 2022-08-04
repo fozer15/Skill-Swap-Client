@@ -10,8 +10,12 @@ import {
 } from "../generated/graphql";
 import { setUser } from "../store/authSlice";
 import { AppStore } from "../store/store";
+import { supportsResultCaching } from "@apollo/client/cache/inmemory/entityStore";
 
-export function withAuth(gssp: GetServerSideProps, store: AppStore) {
+export function withAuth(
+  gssp: GetServerSideProps | any,
+  store: AppStore
+): GetServerSideProps {
   return async (context: GetServerSidePropsContext) => {
     const client: ApolloClient<InMemoryCache> = initializeApollo(null, context);
     try {
@@ -23,32 +27,24 @@ export function withAuth(gssp: GetServerSideProps, store: AppStore) {
       });
 
       const { __typename, ...rest } = res.data.getCurrentUser;
+      const user = rest;
+      store.dispatch(setUser(user));
 
-      store.dispatch(setUser(rest));
+      const sp: any = await gssp(context, user);
 
-      const sp: any = await gssp(context);
-      const finalProps = {
-        props: {
-          ...sp.props,
-          initialApolloState: client.cache.extract(),
-        },
-      };
+      sp.props = { ...sp.props, initialApolloState: client.cache.extract() };
 
-      if (
-        rest.isProfileCreated ||
-        (!rest.isProfileCreated && context.resolvedUrl == "/create-profile")
-      ) {
-        return finalProps;
-      } else {
+      if (!user.isProfileCreated) {
         return {
           redirect: {
             destination: "/create-profile",
           },
-          ...finalProps,
         };
       }
+
+      return sp;
     } catch (err) {
-      console.log((err as any).message);
+      //auth-error
       return {
         redirect: {
           destination: "/login",

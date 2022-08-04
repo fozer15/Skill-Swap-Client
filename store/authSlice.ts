@@ -5,17 +5,21 @@ import { storeKeyNameFromField } from "@apollo/client/utilities";
 
 export interface UserState {
   data: {
+    id: string;
     first_name: string;
     last_name: string;
     email: string;
+    isProfileCreated: boolean;
   };
 }
 
 let initialState: UserState = {
   data: {
+    id: "",
     first_name: "",
     last_name: "",
     email: "",
+    isProfileCreated: false,
   },
 };
 

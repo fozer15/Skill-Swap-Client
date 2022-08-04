@@ -14,7 +14,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     return auth.onIdTokenChanged(async (user) => {
-      //sets a firebase listener for cookie setting
+      console.log("token renewed");
+
       if (!user) {
         nookies.set(undefined, "token", "", { path: "/" });
       } else {
