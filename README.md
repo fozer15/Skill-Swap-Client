@@ -3,7 +3,7 @@
 
 This is a platform where users can exchange their skills and have fun.
 
-Tools and techs I used in this project:
+Tools and Techs Used in this project:
 ----------------------------
 * Firebase Auth
 * GarphQL
