@@ -8,6 +8,7 @@ Tools and techs I used in this project:
 * Firebase Auth
 * React JS
 * PostgreSQL
+* Next JS
 * Node JS
 
 Images:
