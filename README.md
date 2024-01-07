@@ -9,7 +9,7 @@ Tools and techs I used in this project:
 * React JS
 * PostgreSQL
 * Node JS
-* 
+
 Images:
 ----------------------------
 <img width="1267" alt="skılls1" src="https://github.com/Cobatsu/Skill-Swap-Client/assets/56139934/663649cb-1ef2-4695-b03b-ccef8b6f72bc">
