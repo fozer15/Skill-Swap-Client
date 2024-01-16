@@ -10,7 +10,7 @@ Tools and techs I used in this project:
 * PostgreSQL
 * Next JS
 * Node JS
-* Next JS
+
 
 Images:
 ----------------------------
