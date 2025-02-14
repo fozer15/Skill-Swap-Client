@@ -1,7 +1,7 @@
 # Skill Swap
 
 
-This is a platform where users can exchange their skills and have fun. Its still in progress...
+This is a platform built with Next Js where users can exchange their skills and have fun. Its still in progress...
 
 Images:
 ----------------------------
